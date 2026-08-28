@@ -9,6 +9,7 @@
  * ARI_PASS       — ARI password
  * ARI_APP        — Stasis application name (default voip-app; matches
  *                  voip-asterisk/config/extensions.conf `Stasis(${ARI_APP},...)`)
+ * PORT           — HTTP server port (default 3000)
  */
 
 const ARI_APP_DEFAULT = 'voip-app';
@@ -28,6 +29,7 @@ function loadConfig() {
     ariUser: required('ARI_USER'),
     ariPass: required('ARI_PASS'),
     ariApp: process.env.ARI_APP || ARI_APP_DEFAULT,
+    port: parseInt(process.env.PORT || '3000', 10),
   };
 }
 
