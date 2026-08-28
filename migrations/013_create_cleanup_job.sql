@@ -1,0 +1,16 @@
+-- Cleanup job for app.processed_events: Postgres has no native TTL, so
+-- expired idempotency rows are deleted by pg_cron when available, with the
+-- application sweep (below) as the fallback.
+--
+-- Application-level fallback (run periodically, e.g. every 5 minutes):
+--   DELETE FROM app.processed_events WHERE expires_at < NOW();
+--
+-- pg_cron scheduling (optional, run once by DBA when pg_cron is installed):
+--   SELECT cron.schedule(
+--     'app-processed-events-cleanup',
+--     '*/5 * * * *',
+--     $$DELETE FROM app.processed_events WHERE expires_at < NOW()$$
+--   );
+--
+-- This migration intentionally performs no DDL/DML at apply time: cleanup
+-- wiring is deployment-specific (pg_cron availability on RDS, permissions).

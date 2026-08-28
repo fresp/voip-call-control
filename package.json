@@ -1,0 +1,24 @@
+{
+  "name": "voip-call-control",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VoIP call control service (Phase 1: PostgreSQL data model and migrations)",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "migrate": "node scripts/migrate.js up",
+    "migrate:down": "node scripts/migrate.js down",
+    "migrate:status": "node scripts/migrate.js status",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "ari-client": "^2.2.0",
+    "node-pg-migrate": "^8.0.3",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
